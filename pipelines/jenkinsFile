@@ -1,28 +1,16 @@
 pipeline
 {
-   agent any
-   ws ('C:\Users\E004283')
-    stages
-	{  
-	  
-	   stage ('compile java class')
-	   {
-	     steps
-		 {
-		   bat 'javac test.java'
-		 }
-	   
-	   }
-	   
-	   stage ('run java file')
-	   {
-	     steps
-		 {
-		   bat 'java test'
-		 }
-	   }
-	 
-	 
-	} 
-
+   stage ('test jenkins file')
+   { 
+     steps{
+	     script {
+			ws ('C:\\\\Users\\\\E004283\\\\.jenkins\\\\workspace\\\\TestPipeline'){
+			bat 'javac test.java'
+			bat 'java test'
+				}
+			  }
+         }
+   
+     }
+   
 }
