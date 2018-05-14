@@ -1,6 +1,8 @@
 pipeline
 {
-   stage ('test jenkins file')
+  agent any 
+  stages {
+   stage('test jenkins file')
    { 
      steps{
 	     script {
@@ -12,5 +14,6 @@ pipeline
          }
    
      }
+	 }
    
 }
