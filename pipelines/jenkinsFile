@@ -1,8 +1,10 @@
 pipeline
 {
    agent any
+   ws ('C:\Users\E004283')
     stages
-	{
+	{  
+	  
 	   stage ('compile java class')
 	   {
 	     steps
