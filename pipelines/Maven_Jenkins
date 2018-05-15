@@ -1,8 +1,15 @@
  pipeline{
       agent any
-	  def Maven_Home = tool 'MAVEN_HOME';
-      def workspace=pwd()
+	  
 	  stages {
+	  
+	  stage('setting parameters'){
+	         steps{
+			      def Maven_Home = tool 'MAVEN_HOME';
+                  def workspace=pwd()
+				  }
+		 }		  
+	            
       stage('code checkout'){
 	          steps{
 		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
