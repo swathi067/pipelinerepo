@@ -36,7 +36,7 @@ pipeline{
 				   }
 				
 				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
-					  bat 'catalina.bat start'
+					  bat 'Tomcat8.exe start'
 				   }
 
 				   }
