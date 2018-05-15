@@ -1,10 +1,12 @@
- pipeline{
+pipeline{
       agent any
 	  stages {
 	       stage('code checkout'){
 	          steps{
-			     def Maven_Home = tool 'MAVEN_HOME'
-	             def workspace = pwd()
+			    script{
+					 def Maven_Home = tool 'MAVEN_HOME'
+					 def workspace = pwd()
+				 }
 		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
 				}
               }
@@ -36,8 +38,7 @@
 					  bat 'startup'   
 					  } 
 				   }
-					}
-               
-          }			   
-       }
+			    }
+            }			   
+        }
 	}  
