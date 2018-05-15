@@ -1,5 +1,6 @@
 pipeline {
     agent any 
+	def workspace =pwd()
 	stages {
 	   stage('code checkout'){
 	       steps{
@@ -27,9 +28,14 @@ pipeline {
         stage('Deploying war to tomcat'){
             steps  {
                   script{
-				    bat  'cd C:\Apache Software Foundation\Tomcat 8.5\bin'
+				    ws(C:\\Apache Software Foundation\\Tomcat 8.5\\bin){
+					  bat 'shutdown'}
+					  ws(${workspace}\\Archive){
+					    bat  'copy HRMSDP.war C:\\Apache Software Foundation\\Tomcat 8.5\\webapps'
+					  }
+				    bat  'cd C:\\Apache Software Foundation\\Tomcat 8.5\\bin'
 					bat  'shutdown'
-					bat  'copy HRMSDP.war C:\Apache Software Foundation\Tomcat 8.5\webapps';
+					bat  'copy HRMSDP.war C:\\Apache Software Foundation\\Tomcat 8.5\\webapps';
 					bat  'startup'
 					}
                }
@@ -37,3 +43,51 @@ pipeline {
        }
 	 }  
   
+  
+ 
+ ***********************************************************************************************
+ 
+ node{
+      def workspace=pwd()
+      stage('code checkout'){
+	     
+		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
+				
+              }
+	   def Maven_Home = tool 'MAVEN_HOME';
+	  
+	   stage('build maven project'){
+         
+                 script{
+                         bat 'mvn clean install'
+					   }
+                  
+				  
+			}		
+       stage('packaging to war file '){
+            
+                  script{
+                         bat 'mvn package'
+                     }
+                  
+             }   
+	   		
+        stage('Deploying war to tomcat'){
+            
+                  script{
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+					  bat 'shutdown'
+				   }
+				   dir("${workspace}\\Archive")	  {
+				       	bat  'copy HRMSDP.war C:\\Apache Software Foundation\\Tomcat 8.5\\webapps'
+				   }
+					  
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+					  bat 'startup'   
+					   
+				   }
+					}
+               
+          }			   
+       }
+	  
