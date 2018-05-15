@@ -1,32 +1,32 @@
  pipeline{
       agent any
+	  def Maven_Home = tool 'MAVEN_HOME';
       def workspace=pwd()
 	  stages {
       stage('code checkout'){
-	     
+	          steps{
 		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
-				
+				}
               }
-	   def Maven_Home = tool 'MAVEN_HOME';
-	  
-	   stage('build maven project'){
-         
+	   
+	  stage('build maven project'){
+             steps{
                  script{
                          bat 'mvn clean install'
 					   }
-                  
-				  
+                  }  
 			}		
        stage('packaging to war file '){
-            
+              steps{
                   script{
                          bat 'mvn package'
                      }
+			     }
                   
              }   
 	   		
         stage('Deploying war to tomcat'){
-            
+               steps{
                   script{
 				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
 					  bat 'shutdown'
@@ -37,7 +37,7 @@
 					  
 				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
 					  bat 'startup'   
-					   
+					  } 
 				   }
 					}
                
