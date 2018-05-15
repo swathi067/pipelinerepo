@@ -1,0 +1,39 @@
+pipeline {
+    agent any 
+	stages {
+	   stage('code checkout'){
+	       steps{
+		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
+				}
+              }
+	   def Maven_Home = tool 'MAVEN_HOME';
+	  
+	   stage('build maven project'){
+            steps{
+                 script{
+                         bat 'mvn clean install'
+					   }
+                  }
+				  
+			}		
+       stage('packaging to war file '){
+            steps {
+                  script{
+                         bat 'mvn package'
+                     }
+                  }
+             }   
+	   		
+        stage('Deploying war to tomcat'){
+            steps  {
+                  script{
+				    bat  'cd C:\Apache Software Foundation\Tomcat 8.5\bin'
+					bat  'shutdown'
+					bat  'copy HRMSDP.war C:\Apache Software Foundation\Tomcat 8.5\webapps';
+					bat  'startup'
+					}
+               }
+          }			   
+       }
+	 }  
+  
