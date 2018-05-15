@@ -5,7 +5,7 @@
 	  
 	  stage('setting parameters'){
 	         steps{
-			      def Maven_Home = tool 'MAVEN_HOME';
+			      def Maven_Home = tool 'MAVEN_HOME'
                   def workspace=pwd()
 				  }
 		    }		  
