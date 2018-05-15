@@ -34,7 +34,10 @@ pipeline{
 				   dir("${workspace}\\Archive")	  {
 				       fileOperations([fileCopyOperation(excludes: '', flattenFiles: false, includes: '*.war', targetLocation: 'C:\\Apache Software Foundation\\Tomcat 8.5\\webapps')])
 				   }
-				  bat "\"C:\\\\Apache Software Foundation\\\\Tomcat 8.5\\\\bin\\\\startup.bat\""
+				 script{
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+					  bat 'catalina.bat start'
+				   }
 
 				   }
 			    }
