@@ -8,7 +8,7 @@
 			      def Maven_Home = tool 'MAVEN_HOME';
                   def workspace=pwd()
 				  }
-		 }		  
+		    }		  
 	            
       stage('code checkout'){
 	          steps{
