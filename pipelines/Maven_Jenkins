@@ -1,8 +1,5 @@
  pipeline{
       agent any
-	  
-	  def Maven_Home = tool 'MAVEN_HOME'
-	  def workspace = pwd()
 	  stages {
 	       stage('code checkout'){
 	          steps{
