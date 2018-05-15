@@ -3,11 +3,11 @@
 	  
 	  def Maven_Home = tool 'MAVEN_HOME'
 	  def workspace = pwd()
-			
 	  stages {
-	              
-      stage('code checkout'){
+	       stage('code checkout'){
 	          steps{
+			     def Maven_Home = tool 'MAVEN_HOME'
+	             def workspace = pwd()
 		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
 				}
               }
@@ -25,7 +25,6 @@
                          bat 'mvn package'
                      }
 			     }
-                  
              }   
 	  stage('Deploying war to tomcat'){
                steps{
@@ -36,7 +35,7 @@
 				   dir("${workspace}\\Archive")	  {
 				       fileOperations([fileCopyOperation(excludes: '', flattenFiles: false, includes: '*.war', targetLocation: 'C:\\Apache Software Foundation\\Tomcat 8.5\\webapps')])
 				   }
-					dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
 					  bat 'startup'   
 					  } 
 				   }
