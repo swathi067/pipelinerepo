@@ -28,7 +28,7 @@ pipeline{
 	  stage('Deploying war to tomcat'){
                steps{
                   script{
-				     dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
 					  bat 'Tomcat8.exe stop'
 				   }
 				   dir("${workspace}\\Archive")	  {

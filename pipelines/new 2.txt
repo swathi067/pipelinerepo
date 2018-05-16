@@ -1,0 +1,40 @@
+node{
+      def workspace=pwd()
+      stage('code checkout'){
+	     
+		         git changelog: false, poll: false, url: 'https://github.com/saimanoj4/hrms.git'
+				
+              }
+	   def Maven_Home = tool 'MAVEN_HOME';
+	  
+	   stage('build maven project'){
+         
+                 script{
+                         bat 'mvn clean install'
+					   }
+                  
+				  
+			}		
+       stage('packaging to war file '){
+            
+                  script{
+                         bat 'mvn package'
+                     }
+                  
+             }   
+	   		
+        stage('Deploying war to tomcat'){
+            
+                  script{
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+					  bat 'shutdown'
+					  
+				   dir('C:\\Apache Software Foundation\\Tomcat 8.5\\bin'){
+					  bat 'startup'   
+					   
+				   }
+					}
+               
+          }			   
+       }
+	  
