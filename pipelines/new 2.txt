@@ -14,7 +14,7 @@ node{
 					   }
                   
 				  
-			}		
+			}		    
        stage('packaging to war file '){
             
                   script{
