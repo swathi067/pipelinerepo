@@ -1,11 +1,13 @@
-pipeline{
+pipeline {
  agent any 
-     stage {
-	    def  props = new Properties();
-		File propFile = new File('C:/test/test.properties')
-		props.load(propFile.newDataInputStream())
-		def day1 = props[System.getenv("weekday")]
-		println "day:${day1}"
-		}
+     stage ('read file') {
+	    script{
+			def  props = new Properties();
+			File propFile = new File('C:/test/test.properties')
+			props.load(propFile.newDataInputStream())
+			def day1 = props[System.getenv("weekday")]
+			println "day:${day1}"
+		   }
+		 }
 	}
 	   
