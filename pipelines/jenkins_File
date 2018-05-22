@@ -4,7 +4,7 @@ pipeline {
      stage('read file') {
 	    steps{
 		  script{
-			def day=System.getenv("Weekday")
+			def day='Tue'
 			build job: 'testparameters', parameters: [string(name: 'browser', value: 'Chrome'), string(name: 'Day', value: day)]
 			  }
 		   }
